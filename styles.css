@@ -61,7 +61,7 @@ a {
 }
 
 .pixel-shell {
-    width: min(1440px, calc(100% - 52px));
+    width: min(1400px, calc(100% - 52px));
     margin-inline: auto;
 }
 
@@ -304,7 +304,7 @@ a {
 }
 
 .pixel-section {
-    padding: 84px 0;
+    padding: 2rem 0;
 }
 
 .pixel-section--tint {
