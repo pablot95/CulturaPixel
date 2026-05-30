@@ -37,24 +37,52 @@
             event.preventDefault();
 
             const nombre = form.nombre.value.trim();
+            const apellido = form.apellido.value.trim();
+            const dni = form.dni.value.trim();
+            const fecha = form.fecha.value.trim();
             const telefono = form.telefono.value.trim();
             const interes = form.interes.value.trim();
 
-            if (!nombre || !telefono || !interes) {
+            if (!nombre || !apellido || !dni || !fecha || !telefono || !interes) {
                 form.reportValidity();
                 return;
             }
 
             const mensaje = [
-                'Hola Cultura Pixel, quiero informacion para inscribirme.',
+                'Hola, quiero inscribirme.',
                 '',
                 'Nombre: ' + nombre,
+                'Apellido: ' + apellido,
+                'DNI: ' + dni,
+                'Fecha de nacimiento: ' + fecha,
                 'Telefono: ' + telefono,
-                'Programa de interes: ' + interes
+                'Curso(s) de interes: ' + interes
             ].join('\n');
 
-            const waUrl = 'https://wa.me/5491100000000?text=' + encodeURIComponent(mensaje);
+            const waUrl = 'https://wa.me/5492615547922?text=' + encodeURIComponent(mensaje);
             window.open(waUrl, '_blank', 'noopener,noreferrer');
         });
     }
+
+    // Abrir detalles al hacer clic en el header de la card
+    const cursoCards = document.querySelectorAll('.curso-card');
+    
+    cursoCards.forEach(function (card) {
+        const header = card.querySelector('.curso-card__header');
+        const details = card.querySelector('.curso-card__details');
+        
+        if (header && details) {
+            header.style.cursor = 'pointer';
+            
+            header.addEventListener('click', function (e) {
+                // No abrir si se hace clic en un enlace
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    return;
+                }
+                
+                // Toggle del details
+                details.open = !details.open;
+            });
+        }
+    });
 })();
