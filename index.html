@@ -37,7 +37,7 @@
     <link rel="shortcut icon" href="images/favicon.png">
     <meta name="apple-mobile-web-app-title" content="Cultura Pixel">
     <meta name="application-name" content="Cultura Pixel">
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" fetchpriority="high">
+    <link rel="preload" as="image" href="images/logohorizontal.png" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -178,7 +178,7 @@
     <header class="pixel-header" id="inicio">
         <div class="pixel-shell pixel-header__inner">
             <a class="pixel-brand" href="#inicio" aria-label="Ir al inicio">
-                <img src="images/logovertical.png" alt="Instituto Cultura Pixel" class="pixel-brand__logo" />
+                <img src="images/logohorizontal.png" alt="Instituto Cultura Pixel" class="pixel-brand__logo pixel-brand__logo--hidden" id="headerLogo" />
             </a>
             <button class="pixel-menu-btn" id="pixelMenuBtn" aria-controls="pixelNav" aria-expanded="false" aria-label="Abrir menu">
                 <span></span><span></span><span></span>
@@ -201,7 +201,7 @@
                 <div class="pixel-hero__copy reveal-up">
                     <p class="pixel-kicker">Formación en Fotografía, Video, Sonido y Marketing</p>
                     <h1>Aprendé. Creá. Producí. Tu futuro.</h1>
-                    <p>Instituto oficial, oficial y avalado por la Dirección General de Escuelas (DGE 3213). Formación práctica con salida laboral inmediata.</p>
+                    <p>Instituto oficial y avalado por la Dirección General de Escuelas (DGE 3213). Formación práctica con salida laboral inmediata.</p>
                     <div class="pixel-hero__actions">
                         <a class="pixel-btn pixel-btn--primary" href="#programas">Ver oferta académica</a>
                         <a class="pixel-btn pixel-btn--red" href="#inscripcion">Inscribite ahora</a>
@@ -213,12 +213,9 @@
                     </ul>
                 </div>
                 <div class="pixel-hero__media reveal-right">
-                    <figure class="pixel-hero__main-shot">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Estudiantes trabajando en proyectos digitales en Instituto Cultura Pixel, Mendoza" loading="eager" fetchpriority="high">
-                    </figure>
-                    <figure class="pixel-hero__side-shot">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80" alt="Clase colaborativa en aula creativa del Instituto Cultura Pixel" loading="lazy">
-                    </figure>
+                    <div class="pixel-hero__logo-wrap">
+                        <img src="images/logohorizontal.png" alt="Instituto Cultura Pixel" class="pixel-hero__logo-img" loading="eager" fetchpriority="high">
+                    </div>
                 </div>
             </div>
         </section>
@@ -230,7 +227,7 @@
                     <h2>Instituto oficial avalado por la DGE</h2>
                 </header>
                 <div class="about-content reveal-up">
-                    <p>Somos un instituto oficial, oficial y avalado por la Dirección General de Escuelas, <strong>Instituto IPCL3213</strong>.</p>
+                    <p>Somos un instituto oficial y avalado por la Dirección General de Escuelas, <strong>Instituto IPCL3213</strong>.</p>
                     <p>Nuestro principal objetivo es generar autonomía en nuestros alumnos para que puedan desarrollar sus propios proyectos y obtener una salida laboral inmediata.</p>
                     <p>Nuestras clases son prácticas y dinámicas, fomentando el desarrollo creativo, el trabajo colaborativo y poniendo el foco en el proceso de aprendizaje. Planificamos cuidadosamente cada clase y programa para que todos los cursos se complementen entre sí.</p>
                     <p><strong>Cada alumno puede crear su propio plan de estudio</strong>, eligiendo los cursos que mejor se adapten a sus necesidades e intereses.</p>
@@ -948,37 +945,6 @@
             </div>
         </section>
 
-        <section class="pixel-section pixel-section--tint" id="valores">
-            <div class="pixel-shell">
-                <header class="pixel-section__head reveal-up">
-                    <p class="pixel-kicker">Nuestros pilares</p>
-                    <h2>Formación real. Herramientas reales. Oportunidades reales.</h2>
-                </header>
-                <div class="pillars-grid">
-                    <article class="pillar-card reveal-up" style="--delay:.05s">
-                        <div class="pillar-icon">🎯</div>
-                        <h3>Autonomía y Proyectos</h3>
-                        <p>Te acompañamos a desarrollar tus ideas y convertirlas en proyectos reales.</p>
-                    </article>
-                    <article class="pillar-card reveal-up" style="--delay:.1s">
-                        <div class="pillar-icon">💼</div>
-                        <h3>Salida Laboral Inmediata</h3>
-                        <p>Formación enfocada en el mundo profesional y en las demandas actuales del mercado.</p>
-                    </article>
-                    <article class="pillar-card reveal-up" style="--delay:.15s">
-                        <div class="pillar-icon">📚</div>
-                        <h3>Aprendizaje Significativo</h3>
-                        <p>Proceso de enseñanza centrado en la práctica, la creatividad y la colaboración.</p>
-                    </article>
-                    <article class="pillar-card reveal-up" style="--delay:.2s">
-                        <div class="pillar-icon">🔗</div>
-                        <h3>Cursos Complementarios</h3>
-                        <p>Armá tu propio camino de aprendizaje y potenciá tus habilidades.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
         <section class="pixel-section" id="horarios">
             <div class="pixel-shell">
                 <header class="pixel-section__head reveal-up">
@@ -1258,20 +1224,57 @@
     </main>
 
     <footer class="pixel-footer">
-        <div class="pixel-shell pixel-footer__grid">
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <p><strong>Dirección:</strong> Calle Pezzutti al 500, Maipú, Mendoza</p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/5492615547922" target="_blank" rel="noopener noreferrer">2615547922</a></p>
-                <p><strong>Alias transferencia:</strong> cultura.pixel.fotos</p>
+        <div class="pixel-shell">
+            <div class="pixel-footer__main">
+                <!-- Columna marca -->
+                <div class="pixel-footer__brand">
+                    <img src="images/logohorizontal.png" alt="Instituto Cultura Pixel" class="pixel-footer__logo">
+                    <p class="pixel-footer__tagline">Formación creativa y digital en Mendoza.<br>Avalados por la DGE · Reg. 3213</p>
+                    <a class="pixel-footer__wa" href="https://wa.me/5492615547922?text=Hola%2C%20quiero%20informacion%20sobre%20las%20inscripciones" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.556 4.112 1.528 5.836L0 24l6.335-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.358-.213-3.76.894.952-3.658-.234-.376A9.818 9.818 0 0112 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
+                        261 554-7922
+                    </a>
+                </div>
+
+                <!-- Columna cursos -->
+                <div class="pixel-footer__col">
+                    <h4 class="pixel-footer__col-title">Cursos</h4>
+                    <ul class="pixel-footer__links">
+                        <li><a href="#programas">Fotografía</a></li>
+                        <li><a href="#programas">Iluminación para foto y video</a></li>
+                        <li><a href="#programas">Retrato fotográfico</a></li>
+                        <li><a href="#programas">Edición de video</a></li>
+                        <li><a href="#programas">Cortometraje</a></li>
+                        <li><a href="#programas">Marketing digital</a></li>
+                        <li><a href="#programas">Producción musical</a></li>
+                        <li><a href="#programas">Sonidista</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna info -->
+                <div class="pixel-footer__col">
+                    <h4 class="pixel-footer__col-title">Instituto</h4>
+                    <ul class="pixel-footer__links">
+                        <li><a href="#quienes-somos">Quiénes somos</a></li>
+                        <li><a href="#profesores">Profesores</a></li>
+                        <li><a href="#horarios">Horarios</a></li>
+                        <li><a href="#precios">Precios</a></li>
+                        <li><a href="#inscripcion">Inscripción</a></li>
+                    </ul>
+                    <div class="pixel-footer__address">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Calle Pezzutti al 500, Maipú, Mendoza
+                    </div>
+                    <div class="pixel-footer__address">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                        Alias: cultura.pixel.fotos
+                    </div>
+                </div>
             </div>
-            <div class="footer-col">
-                <h4>Instituto</h4>
-                <p>Instituto oficial avalado por la DGE</p>
-                <p><strong>Reg. DGE 3213</strong></p>
-            </div>
-            <div class="footer-col footer-credits">
-                <p>Developed and designed by <a href="https://gokywebs.net" target="_blank" rel="noopener noreferrer">Gokywebs</a></p>
+
+            <div class="pixel-footer__bottom">
+                <p class="pixel-footer__copy">&copy; 2026 Instituto Cultura Pixel · Todos los derechos reservados</p>
+                <p class="pixel-footer__dev">Diseñado y desarrollado por <a href="https://gokywebs.net" target="_blank" rel="noopener noreferrer">Gokywebs</a></p>
             </div>
         </div>
     </footer>

@@ -3,6 +3,23 @@
     const nav = document.getElementById('pixelNav');
     const form = document.getElementById('pixelForm');
 
+    // Mostrar logo del header recién al pasar el hero
+    const headerLogo = document.getElementById('headerLogo');
+    const heroSection = document.querySelector('.pixel-hero');
+
+    function updateHeaderLogo() {
+        if (!headerLogo || !heroSection) return;
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        if (heroBottom <= 0) {
+            headerLogo.classList.remove('pixel-brand__logo--hidden');
+        } else {
+            headerLogo.classList.add('pixel-brand__logo--hidden');
+        }
+    }
+
+    window.addEventListener('scroll', updateHeaderLogo, { passive: true });
+    updateHeaderLogo();
+
     if (menuBtn && nav) {
         menuBtn.addEventListener('click', function () {
             const isOpen = nav.classList.toggle('is-open');
