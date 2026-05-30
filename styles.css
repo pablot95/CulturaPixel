@@ -1821,7 +1821,6 @@ a {
 .alumnos-collage {
     padding: 0;
     overflow: hidden;
-    background: #0f1035;
 }
 
 .alumnos-collage__grid {
@@ -1940,6 +1939,10 @@ a {
 
     .alumnos-collage__item--tall {
         grid-row: span 1;
+    }
+
+    .alumnos-collage__item--hide-mobile {
+        display: none;
     }
 
     .lightbox__nav {
