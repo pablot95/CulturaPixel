@@ -1,5 +1,14 @@
 User-agent: *
 Allow: /
-Disallow:
+Disallow: /images/alumnos/
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
 
 Sitemap: https://www.institutoculturapixel.com/sitemap.xml
