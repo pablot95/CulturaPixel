@@ -968,6 +968,37 @@ a {
     box-shadow: 0 14px 32px rgba(230, 69, 61, 0.42);
 }
 
+/* ── Sección Mapa ─────────────────────────────────── */
+.pixel-section--map {
+    background: var(--pixel-dark, #0f1035);
+    padding: 72px 0;
+    text-align: center;
+}
+
+.pixel-section--map h2 {
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.pixel-map__address {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 32px;
+    font-size: 0.95rem;
+}
+
+.pixel-map__wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pixel-map__wrapper iframe {
+    display: block;
+    width: 100%;
+}
+
 .pixel-footer {
     background: #080920;
     color: rgba(255, 255, 255, 0.72);
