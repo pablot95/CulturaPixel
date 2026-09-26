@@ -1,0 +1,4 @@
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex"
+  Header always set Referrer-Policy "no-referrer"
+</IfModule>

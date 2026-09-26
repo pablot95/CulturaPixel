@@ -1,6 +1,10 @@
 User-agent: *
 Allow: /
 Disallow: /images/alumnos/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /ebooks/gracias/
+Disallow: /privado/
 
 User-agent: GPTBot
 Disallow: /

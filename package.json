@@ -1,0 +1,15 @@
+{
+  "name": "culturapixel",
+  "private": true,
+  "type": "module",
+  "description": "Sitio del Instituto Cultura Pixel + venta de ebooks (PHP en Hostinger, Firestore y Mercado Pago). Node solo se usa para las pruebas y el servidor local.",
+  "scripts": {
+    "test": "php tests/php/common.test.php && php tests/php/firestore.test.php && php tests/php/ventas.test.php && php tests/php/mercadopago.test.php && php tests/php/ebooks.test.php",
+    "test:integracion": "firebase emulators:exec --only firestore,auth --project demo-culturapixel \"node --test --test-concurrency=1 tests/integracion/*.test.mjs\"",
+    "dev": "node scripts/servidor-local.mjs",
+    "dev:simulado": "firebase emulators:exec --only firestore,auth --project demo-culturapixel \"node scripts/servidor-local.mjs --simulado\"",
+    "ebook:imagenes": "python scripts/imagenes_ebook.py",
+    "firestore:sembrar": "php scripts/sembrar-firestore.php",
+    "firestore:reglas": "firebase deploy --only firestore:rules,firestore:indexes --project institutoculturapixel-ef52a"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "admin": "contacto@institutoculturapixel.com",
+  "camposEditables": ["precio", "activo"],
+  "ebooks": [
+    {
+      "id": "quinceaneras",
+      "titulo": "Quinceañeras · 100 ideas para tu sesión de fotos",
+      "precio": 14900,
+      "moneda": "ARS",
+      "activo": true,
+      "orden": 1,
+      "url": "/ebooks/quinceaneras/",
+      "portada": "/ebooks/quinceaneras/img/portada.webp",
+      "nombreArchivo": "Quinceañeras - 100 ideas para tu sesión de fotos - Cultura Pixel",
+      "descargasMax": 10
+    }
+  ]
+}

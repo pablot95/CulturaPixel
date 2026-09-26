@@ -81,6 +81,25 @@
         });
     }
 
+    // Precio vigente de los ebooks (se edita desde el panel). En las páginas de cada
+    // ebook lo actualiza /ebooks/ebooks.js.
+    const preciosEbook = document.querySelectorAll('[data-precio-ebook]');
+    if (preciosEbook.length && !document.body.classList.contains('ebook-page') && window.fetch) {
+        fetch('/api/ebooks/catalogo.php', { headers: { Accept: 'application/json' } })
+            .then(function (respuesta) { return respuesta.ok ? respuesta.json() : null; })
+            .then(function (datos) {
+                ((datos && datos.ebooks) || []).forEach(function (ebook) {
+                    if (!(ebook.precio > 0)) return;
+                    preciosEbook.forEach(function (elemento) {
+                        if (elemento.getAttribute('data-precio-ebook') === ebook.id) {
+                            elemento.textContent = '$' + new Intl.NumberFormat('es-AR').format(ebook.precio);
+                        }
+                    });
+                });
+            })
+            .catch(function () {});
+    }
+
     // Abrir detalles al hacer clic en el header de la card
     const cursoCards = document.querySelectorAll('.curso-card');
     

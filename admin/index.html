@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <title>Panel de ventas | Instituto Cultura Pixel</title>
+    <meta name="theme-color" content="#0f1035">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="panel">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-resumen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
+        <symbol id="i-ventas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></symbol>
+        <symbol id="i-libro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+        <symbol id="i-mp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol>
+        <symbol id="i-salir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+        <symbol id="i-buscar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+        <symbol id="i-externo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+        <symbol id="i-refrescar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+        <symbol id="i-alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+    </svg>
+
+    <main id="contenido">
+    <h1 class="sr-only">Panel de ventas de ebooks · Instituto Cultura Pixel</h1>
+
+    <div class="panel-cargando" data-vista="cargando">
+        <span class="panel-giro" aria-hidden="true"></span>
+        <p>Cargando el panel…</p>
+    </div>
+
+    <!-- Ingreso -->
+    <div class="panel-login" data-vista="login" hidden>
+        <form class="panel-login__caja" data-login novalidate>
+            <img src="/images/logohorizontal.png" alt="Instituto Cultura Pixel" width="200" height="50">
+            <h2>Panel de ventas</h2>
+            <p class="panel-login__texto">Ingresá con el email y la contraseña del instituto.</p>
+            <div class="panel-campo">
+                <label for="login-email">Email</label>
+                <input id="login-email" name="email" type="email" inputmode="email" autocomplete="username" required>
+            </div>
+            <div class="panel-campo">
+                <label for="login-clave">Contraseña</label>
+                <input id="login-clave" name="clave" type="password" autocomplete="current-password" required>
+            </div>
+            <p class="panel-mensaje panel-mensaje--error" data-login-error role="alert" hidden></p>
+            <p class="panel-mensaje panel-mensaje--ok" data-login-ok role="status" hidden></p>
+            <button class="panel-btn panel-btn--primario panel-btn--ancho" type="submit" data-login-enviar>Ingresar</button>
+            <button class="panel-link" type="button" data-olvide>¿Olvidaste tu contraseña?</button>
+        </form>
+    </div>
+
+    <!-- Panel -->
+    <div class="panel-app" data-vista="app" hidden>
+        <header class="panel-barra">
+            <a class="panel-barra__marca" href="/" target="_blank" rel="noopener" aria-label="Ver el sitio (se abre en otra pestaña)">
+                <img src="/images/favicon.png" alt="" width="32" height="32">
+                <span>Cultura Pixel <small>Panel de ventas</small></span>
+            </a>
+            <nav class="panel-tabs" role="tablist" aria-label="Secciones del panel">
+                <button type="button" role="tab" id="tab-resumen" aria-controls="panel-resumen" aria-selected="true" data-tab="resumen"><svg aria-hidden="true"><use href="#i-resumen"/></svg>Resumen</button>
+                <button type="button" role="tab" id="tab-ventas" aria-controls="panel-ventas" aria-selected="false" tabindex="-1" data-tab="ventas"><svg aria-hidden="true"><use href="#i-ventas"/></svg>Ventas</button>
+                <button type="button" role="tab" id="tab-ebooks" aria-controls="panel-ebooks" aria-selected="false" tabindex="-1" data-tab="ebooks"><svg aria-hidden="true"><use href="#i-libro"/></svg>Ebooks</button>
+                <button type="button" role="tab" id="tab-mp" aria-controls="panel-mp" aria-selected="false" tabindex="-1" data-tab="mp"><svg aria-hidden="true"><use href="#i-mp"/></svg>Mercado Pago</button>
+            </nav>
+            <div class="panel-barra__usuario">
+                <span data-admin-email></span>
+                <button type="button" class="panel-btn panel-btn--suave" data-salir><svg aria-hidden="true"><use href="#i-salir"/></svg>Salir</button>
+            </div>
+        </header>
+
+        <div class="panel-aviso" data-mp-aviso hidden>
+            <p><svg aria-hidden="true"><use href="#i-alerta"/></svg><span>Mercado Pago no está conectado: todavía no se pueden cobrar los ebooks.</span></p>
+            <button type="button" class="panel-btn panel-btn--primario" data-ir-mp>Conectar ahora</button>
+        </div>
+
+        <div class="panel-contenido">
+            <section class="panel-seccion" id="panel-resumen" role="tabpanel" aria-labelledby="tab-resumen" data-panel="resumen" tabindex="-1">
+                <div class="panel-seccion__cabeza">
+                    <h2>Resumen</h2>
+                    <button type="button" class="panel-btn panel-btn--suave" data-refrescar><svg aria-hidden="true"><use href="#i-refrescar"/></svg>Actualizar</button>
+                </div>
+                <div class="panel-kpis" data-kpis></div>
+                <div class="panel-grilla-2">
+                    <article class="panel-tarjeta">
+                        <h3>Últimas ventas</h3>
+                        <ul class="panel-ultimas" data-ultimas></ul>
+                        <button type="button" class="panel-link" data-ir-ventas>Ver todas las ventas</button>
+                    </article>
+                    <article class="panel-tarjeta" data-resumen-mp></article>
+                </div>
+            </section>
+
+            <section class="panel-seccion" id="panel-ventas" role="tabpanel" aria-labelledby="tab-ventas" data-panel="ventas" tabindex="-1" hidden>
+                <div class="panel-seccion__cabeza">
+                    <h2>Ventas</h2>
+                    <form class="panel-buscador" data-buscador role="search">
+                        <label class="sr-only" for="buscar-venta">Buscar por email o número de compra</label>
+                        <input id="buscar-venta" type="search" placeholder="Email o número de compra" autocomplete="off">
+                        <button type="submit" class="panel-btn panel-btn--suave" aria-label="Buscar"><svg aria-hidden="true"><use href="#i-buscar"/></svg></button>
+                    </form>
+                </div>
+                <div class="panel-filtros" role="group" aria-label="Filtrar por estado" data-filtros>
+                    <button type="button" aria-pressed="true" data-estado="">Todas</button>
+                    <button type="button" aria-pressed="false" data-estado="aprobado">Aprobadas</button>
+                    <button type="button" aria-pressed="false" data-estado="pendiente">Pendientes</button>
+                    <button type="button" aria-pressed="false" data-estado="rechazado">Rechazadas</button>
+                    <button type="button" aria-pressed="false" data-estado="reembolsado">Reembolsadas</button>
+                </div>
+                <p class="panel-ayuda">Una venta <strong>pendiente</strong> es alguien que abrió el pago y todavía no lo terminó. Si te escriben diciendo que pagaron, tocá <strong>Verificar pago</strong>.</p>
+                <div class="panel-tabla" data-ventas aria-live="polite"></div>
+                <button type="button" class="panel-btn panel-btn--suave panel-btn--centro" data-mas hidden>Cargar más ventas</button>
+            </section>
+
+            <section class="panel-seccion" id="panel-ebooks" role="tabpanel" aria-labelledby="tab-ebooks" data-panel="ebooks" tabindex="-1" hidden>
+                <div class="panel-seccion__cabeza">
+                    <h2>Ebooks</h2>
+                </div>
+                <p class="panel-ayuda">El precio que guardes acá es el que se cobra y el que se muestra en la web (tarda hasta un minuto en actualizarse). Si pausás la venta, el botón de compra avisa que no está disponible.</p>
+                <div class="panel-ebooks" data-ebooks></div>
+            </section>
+
+            <section class="panel-seccion" id="panel-mp" role="tabpanel" aria-labelledby="tab-mp" data-panel="mp" tabindex="-1" hidden>
+                <div class="panel-seccion__cabeza">
+                    <h2>Mercado Pago</h2>
+                </div>
+                <article class="panel-tarjeta panel-mp" data-mp></article>
+            </section>
+        </div>
+    </div>
+    </main>
+
+    <dialog class="panel-dialogo" data-dialogo-link aria-labelledby="dialogo-link-titulo">
+        <h2 id="dialogo-link-titulo">Nuevo enlace de descarga</h2>
+        <p>Mandáselo a <strong data-dialogo-comprador></strong>. El enlace anterior de esta compra ya no funciona.</p>
+        <label class="sr-only" for="dialogo-link-url">Enlace de descarga</label>
+        <input id="dialogo-link-url" type="text" readonly data-dialogo-url>
+        <div class="panel-dialogo__acciones">
+            <button type="button" class="panel-btn panel-btn--primario" data-dialogo-copiar>Copiar enlace</button>
+            <a class="panel-btn panel-btn--suave" data-dialogo-whatsapp href="https://wa.me/" target="_blank" rel="noopener noreferrer">Enviar por WhatsApp</a>
+            <button type="button" class="panel-btn panel-btn--suave" data-dialogo-cerrar>Cerrar</button>
+        </div>
+    </dialog>
+
+    <div class="panel-toast" data-toast role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="/admin/admin.js"></script>
+</body>
+</html>

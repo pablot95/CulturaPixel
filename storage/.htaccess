@@ -1,0 +1,5 @@
+# PDFs de los ebooks: solo los entrega api/ebooks/descargar.php a compras aprobadas.
+Deny from all
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>

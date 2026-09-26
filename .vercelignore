@@ -1,0 +1,15 @@
+# Transición a Hostinger: mientras el dominio siga apuntando a Vercel, ahí se publica
+# solo el sitio estático. La API (PHP) y los archivos privados corren en Hostinger.
+api
+storage
+tests
+scripts
+secretos
+.claude
+.env*
+.htaccess
+package.json
+firebase.json
+firestore.rules
+firestore.indexes.json
+*.md

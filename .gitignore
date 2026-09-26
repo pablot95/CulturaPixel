@@ -1,0 +1,23 @@
+# Secretos: el repo es público. En Hostinger se suben a mano a api/ (Administrador de
+# archivos) y el deploy por Git no los toca. api/.htaccess bloquea su descarga.
+api/service-account.json
+api/service-account.json.*
+api/mercadopago.local.php
+api/secrets.local.php
+api/secrets.local.php.*
+secretos/
+.env
+.env.*
+
+# PDFs de los ebooks: se suben desde el panel (/admin/) a storage/ebooks/, nunca al repo.
+storage/ebooks/*
+!storage/ebooks/.gitkeep
+
+# Dependencias, caches y temporales
+node_modules/
+.vercel/
+tmp/
+*.log
+
+# Configuración local de herramientas
+.claude/

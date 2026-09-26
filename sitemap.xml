@@ -10,4 +10,10 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://www.institutoculturapixel.com/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.institutoculturapixel.com/"/>
   </url>
+  <url>
+    <loc>https://www.institutoculturapixel.com/ebooks/quinceaneras/</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
