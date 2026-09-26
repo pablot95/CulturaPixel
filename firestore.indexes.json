@@ -15,6 +15,23 @@
         { "fieldPath": "estado", "order": "ASCENDING" },
         { "fieldPath": "mesAprobacion", "order": "ASCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "ventas",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "estado", "order": "ASCENDING" },
+        { "fieldPath": "monto", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "ventas",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "estado", "order": "ASCENDING" },
+        { "fieldPath": "mesAprobacion", "order": "ASCENDING" },
+        { "fieldPath": "monto", "order": "ASCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

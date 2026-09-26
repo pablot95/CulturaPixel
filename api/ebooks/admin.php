@@ -13,15 +13,24 @@ require_once dirname(__DIR__) . '/lib/ventas.php';
 const ESTADOS_VENTA = ['aprobado', 'pendiente', 'rechazado', 'cancelado', 'reembolsado'];
 const VENTAS_POR_PAGINA = 25;
 
-function resumenVentas(): array {
+/**
+ * Totales del panel. Si Firestore no los puede calcular (por ejemplo, un índice que
+ * todavía se está construyendo) devuelve null y el panel carga igual, sin el resumen.
+ */
+function resumenVentas(): ?array {
     $mes = mesArgentina();
-    return [
-        'aprobadas' => fsCountSum('ventas', [['estado', '==', 'aprobado']], 'monto'),
-        'mes' => fsCountSum('ventas', [['estado', '==', 'aprobado'], ['mesAprobacion', '==', $mes]], 'monto'),
-        'pendientes' => fsCountSum('ventas', [['estado', '==', 'pendiente']])['cantidad'],
-        'revision' => fsCountSum('ventas', [['requiereRevision', '==', true]])['cantidad'],
-        'mesActual' => $mes,
-    ];
+    try {
+        return [
+            'aprobadas' => fsCountSum('ventas', [['estado', '==', 'aprobado']], 'monto'),
+            'mes' => fsCountSum('ventas', [['estado', '==', 'aprobado'], ['mesAprobacion', '==', $mes]], 'monto'),
+            'pendientes' => fsCountSum('ventas', [['estado', '==', 'pendiente']])['cantidad'],
+            'revision' => fsCountSum('ventas', [['requiereRevision', '==', true]])['cantidad'],
+            'mesActual' => $mes,
+        ];
+    } catch (Throwable $error) {
+        error_log('[admin] resumen: ' . $error->getMessage());
+        return null;
+    }
 }
 
 function ventaDeEntrada(array $entrada): array {

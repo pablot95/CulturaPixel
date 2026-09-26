@@ -164,6 +164,13 @@ function pintarResumen() {
     h('p', { class: 'panel-kpi__etiqueta' }, etiqueta),
     h('p', { class: 'panel-kpi__valor' }, valor),
     h('p', { class: 'panel-kpi__detalle' }, detalle));
+  if (!resumen) {
+    // El servidor no pudo calcular los totales: el resto del panel funciona igual.
+    reemplazar($('[data-kpis]'),
+      kpi('Resumen de ventas', '—', 'No se pudo calcular ahora. Tocá «Actualizar» en unos minutos.'));
+    pintarResumenMP();
+    return;
+  }
   const aprobadas = resumen.aprobadas.cantidad;
   reemplazar($('[data-kpis]'),
     kpi('Recaudado en total', dinero(resumen.aprobadas.total), `${aprobadas} ${aprobadas === 1 ? 'venta aprobada' : 'ventas aprobadas'}`, 'panel-kpi--destacado'),

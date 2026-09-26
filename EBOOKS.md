@@ -78,4 +78,7 @@ En `dev:simulado` el panel entra con `contacto@institutoculturapixel.com` y la c
 - Reglas: todo cerrado para el navegador (`firestore.rules`). La API usa la cuenta de servicio y el panel pasa por `api/ebooks/admin.php`.
 - Colecciones: `ebooks`, `ventas`, `config/mercadopago` (tokens, nunca salen del servidor), `admins`, `auditoria`, `logs_webhooks`.
 - Índices: `firestore.indexes.json` (`npm run firestore:reglas` publica reglas e índices).
+  El emulador de las pruebas **no exige índices compuestos**: después de tocar consultas o
+  índices, correr `npm run firestore:verificar`, que prueba contra el Firestore real (solo
+  lectura) todas las consultas de la API y el panel.
 - Acceso al panel: documento `admins/{email}` con `activo: true` + usuario en Firebase Authentication.

@@ -10,6 +10,7 @@
     "dev:simulado": "firebase emulators:exec --only firestore,auth --project demo-culturapixel \"node scripts/servidor-local.mjs --simulado\"",
     "ebook:imagenes": "python scripts/imagenes_ebook.py",
     "firestore:sembrar": "php scripts/sembrar-firestore.php",
-    "firestore:reglas": "firebase deploy --only firestore:rules,firestore:indexes --project institutoculturapixel-ef52a"
+    "firestore:reglas": "firebase deploy --only firestore:rules,firestore:indexes --project institutoculturapixel-ef52a",
+    "firestore:verificar": "php scripts/verificar-firestore.php"
   }
 }
