@@ -13,7 +13,7 @@ el pago, límites por IP) en una versión chica pensada para productos digitales
 | `/#ebooks` | Sección de ebooks en la home (una tarjeta por ebook) |
 | `/ebooks/quinceaneras/` | Landing del ebook (también `/quinceaneras`) |
 | `/ebooks/gracias/?orden=…&clave=…` | Página de éxito: confirma el pago, descarga sola y deja el botón. Ese link es el acceso personal del comprador |
-| `/admin/` | Panel del instituto: resumen, ventas, precio / pausa, **subida del PDF** y conexión con Mercado Pago |
+| `/admin/` | Panel del instituto: resumen, ventas, precio / pausa, **enlace para compartir** cada libro, **subida del PDF** y conexión con Mercado Pago |
 | `api/ebooks/*.php`, `api/mp-conectar.php` | API en PHP (`api/lib/` tiene la lógica) |
 | `storage/ebooks/<id>.pdf` | Los PDF. Se suben desde el panel; `storage/.htaccess` bloquea el acceso directo |
 
@@ -53,12 +53,17 @@ Una venta aprobada solo cambia si se reembolsa o contracarga **ese mismo pago**.
 ## Agregar otro ebook
 
 1. Sumarlo a `scripts/datos-ebooks.json` y correr `npm run firestore:sembrar` (crea `ebooks/{id}`; el precio y la pausa después se manejan desde el panel).
-2. Imágenes (tapa, páginas de muestra e imagen para compartir) desde el PDF:
-   `npm run ebook:imagenes -- --pdf "C:\ruta\libro.pdf" --id <id> --paginas 1,4,9,15,22,30,41,55 --titulo "…" --subtitulo "…"`
-3. Copiar `ebooks/quinceaneras/` como base de la landing (cambiar `data-ebook`, textos, JSON-LD y rutas de imágenes) y sumar la tarjeta en la sección `#ebooks` de la home y en `sitemap.xml`.
-4. Subir el PDF desde el panel.
+2. Imágenes (tapa, presentación, ideas de muestra e imagen para compartir). Los originales se
+   dejan en `ebooks/` (no se suben a Git) y el script genera las versiones livianas en `ebooks/<id>/img/`:
+   `npm run ebook:imagenes -- --id <id> --tapa ebooks/tapa.jpg --resumen ebooks/resumen.jpg --ideas ebooks/idea1.jpg ebooks/idea2.jpg --titulo "…" --subtitulo "…"`
+   (o `--pdf "C:\ruta\libro.pdf" --paginas 1,4,9,15` para sacarlas del PDF). Cada idea queda
+   como `pagina-NN.webp` para el carrusel y `pagina-NN-grande.webp` para verla ampliada.
+3. Copiar `ebooks/quinceaneras/` como base de la landing (cambiar `data-ebook`, textos, nombres y `alt` de las ideas, JSON-LD y rutas de imágenes) y sumar la tarjeta en la sección `#ebooks` de la home y en `sitemap.xml`.
+4. Subir el PDF desde el panel y copiar el enlace del libro (**Ebooks → Copiar enlace**) para compartirlo.
 
-Si el PDF no es A4 vertical, ajustar `width`/`height` de las imágenes en la landing y el `aspect-ratio` de `.libro` en `ebooks/ebooks.css`.
+La tapa de Quinceañeras es cuadrada. Si otro libro tiene tapa vertical, poner
+`style="--ebook-tapa: 900 / 1272"` (sus medidas) en el `<body>` de su landing y ajustar
+`width`/`height` de sus imágenes.
 
 ## Probar en local
 

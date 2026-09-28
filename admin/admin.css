@@ -671,6 +671,7 @@ input:focus {
 
 .panel-ebook img {
     width: 110px;
+    height: auto;
     border-radius: 3px 8px 8px 3px;
     box-shadow: 0 12px 24px rgba(28, 17, 80, 0.2);
 }
@@ -804,25 +805,42 @@ input:focus {
     transform: translateX(20px);
 }
 
-.panel-ebook__enlaces {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 14px;
-    font-size: 14px;
+.panel-ebook__enlace {
+    display: grid;
+    gap: 6px;
+    margin-top: 12px;
 }
 
-.panel-ebook__enlaces a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--violeta-osc);
+.panel-ebook__enlace label {
+    font-size: 13px;
     font-weight: 700;
 }
 
-.panel-ebook__enlaces svg {
-    width: 15px;
-    height: 15px;
+.panel-ebook__enlace-fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-ebook__enlace-fila input {
+    flex: 1 1 280px;
+    width: auto;
+    min-width: 0;
+    min-height: 40px;
+    background: #faf9fe;
+    color: var(--tinta-suave);
+    font-size: 14px;
+    text-overflow: ellipsis;
+}
+
+.panel-ebook__enlace-fila .panel-btn {
+    min-height: 40px;
+}
+
+.panel-ebook__enlace-fila svg {
+    width: 16px;
+    height: 16px;
 }
 
 /* ---------- mercado pago ---------- */

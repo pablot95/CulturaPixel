@@ -42,7 +42,7 @@
           "@id": "https://www.institutoculturapixel.com/ebooks/quinceaneras/#producto",
           "name": "Quinceañeras: 100 ideas para tu sesión de fotos",
           "description": "Ebook en PDF con más de 100 ideas originales para planificar una sesión de fotos de 15 años.",
-          "image": ["https://www.institutoculturapixel.com/ebooks/quinceaneras/img/portada.webp"],
+          "image": ["https://www.institutoculturapixel.com/ebooks/quinceaneras/img/portada.webp", "https://www.institutoculturapixel.com/ebooks/quinceaneras/img/resumen.webp"],
           "brand": { "@type": "Brand", "name": "Instituto Cultura Pixel" },
           "offers": {
             "@type": "Offer",
@@ -85,6 +85,7 @@
         <symbol id="i-ideas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></symbol>
         <symbol id="i-celular" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></symbol>
         <symbol id="i-rayo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+        <symbol id="i-lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></symbol>
     </svg>
 
     <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
@@ -137,7 +138,7 @@
                 </div>
                 <div class="ebook-hero__libro reveal-right">
                     <div class="libro">
-                        <img src="/ebooks/quinceaneras/img/portada.webp" width="900" height="1272" alt="Tapa del ebook Quinceañeras: 100 ideas para tu sesión de fotos" fetchpriority="high">
+                        <img src="/ebooks/quinceaneras/img/portada.webp" width="900" height="900" alt="Tapa del ebook Quinceañeras: 100 ideas para tu sesión de fotos" fetchpriority="high">
                     </div>
                 </div>
             </div>
@@ -146,32 +147,37 @@
         <!-- 2. QUÉ VAS A ENCONTRAR -->
         <section class="ebook-section" id="que-trae" aria-labelledby="titulo-que-trae">
             <div class="pixel-shell">
-                <header class="pixel-section__head reveal-up">
-                    <p class="pixel-kicker">¿Qué vas a encontrar?</p>
-                    <h2 id="titulo-que-trae">¿No sabés qué hacer para tus fotos de 15?</h2>
-                </header>
-                <div class="ebook-intro reveal-up">
-                    <p>Este libro reúne más de 100 ideas para ayudarte a encontrar una sesión que tenga tu estilo o te permita sorprender a todos.</p>
-                    <p>Elegí una idea, mezclá varias o usá el catálogo como punto de partida para crear una sesión completamente personalizada.</p>
+                <div class="ebook-intro">
+                    <div class="ebook-intro__texto reveal-up">
+                        <p class="pixel-kicker">¿Qué vas a encontrar?</p>
+                        <h2 id="titulo-que-trae">¿No sabés qué hacer para tus fotos de 15?</h2>
+                        <p>Este libro reúne más de 100 ideas para ayudarte a encontrar una sesión que tenga tu estilo o te permita sorprender a todos.</p>
+                        <p>Elegí una idea, mezclá varias o usá el catálogo como punto de partida para crear una sesión completamente personalizada.</p>
+                    </div>
+                    <div class="ebook-intro__resumen reveal-right">
+                        <button type="button" class="ebook-resumen" data-pagina="0" data-nombre="Presentación" data-grande="/ebooks/quinceaneras/img/resumen-grande.webp" aria-label="Ampliar la presentación del libro">
+                            <img src="/ebooks/quinceaneras/img/resumen.webp" width="1000" height="1000" alt="Presentación del libro: una guía visual con ideas creativas para todos los estilos, escenarios únicos (ciudad, naturaleza, estudio y más), elementos originales como flores, agua, luces, humo y pintura, y conceptos que inspiran." loading="lazy" decoding="async">
+                        </button>
+                    </div>
                 </div>
 
                 <div class="ebook-muestra">
                     <h3 class="ebook-muestra__titulo">
                         <span id="titulo-muestra">Mirá todo lo que vas a encontrar adentro</span>
                         <span class="ebook-muestra__flechas">
-                            <button type="button" class="ebook-flecha" data-paginas-anterior aria-label="Ver páginas anteriores"><svg aria-hidden="true"><use href="#i-flecha-izq"/></svg></button>
-                            <button type="button" class="ebook-flecha" data-paginas-siguiente aria-label="Ver más páginas"><svg aria-hidden="true"><use href="#i-flecha-der"/></svg></button>
+                            <button type="button" class="ebook-flecha" data-paginas-anterior aria-label="Ver ideas anteriores"><svg aria-hidden="true"><use href="#i-flecha-izq"/></svg></button>
+                            <button type="button" class="ebook-flecha" data-paginas-siguiente aria-label="Ver más ideas"><svg aria-hidden="true"><use href="#i-flecha-der"/></svg></button>
                         </span>
                     </h3>
+                    <p class="ebook-muestra__ayuda">Estas son 7 de las más de 100 ideas del libro, con su maquillaje, peinado, vestuario, accesorios y paleta de colores. Tocá una para verla en grande.</p>
                     <ul class="ebook-paginas" data-paginas tabindex="0" aria-labelledby="titulo-muestra">
-                        <li><button type="button" class="ebook-pagina" data-pagina="0" aria-label="Ampliar la página de muestra 1"><img src="/ebooks/quinceaneras/img/pagina-01.webp" width="720" height="1018" alt="Página de muestra 1 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
-                        <li><button type="button" class="ebook-pagina" data-pagina="1" aria-label="Ampliar la página de muestra 2"><img src="/ebooks/quinceaneras/img/pagina-02.webp" width="720" height="1018" alt="Página de muestra 2 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
-                        <li><button type="button" class="ebook-pagina" data-pagina="2" aria-label="Ampliar la página de muestra 3"><img src="/ebooks/quinceaneras/img/pagina-03.webp" width="720" height="1018" alt="Página de muestra 3 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
-                        <li><button type="button" class="ebook-pagina" data-pagina="3" aria-label="Ampliar la página de muestra 4"><img src="/ebooks/quinceaneras/img/pagina-04.webp" width="720" height="1018" alt="Página de muestra 4 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
-                        <li><button type="button" class="ebook-pagina" data-pagina="4" aria-label="Ampliar la página de muestra 5"><img src="/ebooks/quinceaneras/img/pagina-05.webp" width="720" height="1018" alt="Página de muestra 5 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
-                        <li><button type="button" class="ebook-pagina" data-pagina="5" aria-label="Ampliar la página de muestra 6"><img src="/ebooks/quinceaneras/img/pagina-06.webp" width="720" height="1018" alt="Página de muestra 6 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
-                        <li><button type="button" class="ebook-pagina" data-pagina="6" aria-label="Ampliar la página de muestra 7"><img src="/ebooks/quinceaneras/img/pagina-07.webp" width="720" height="1018" alt="Página de muestra 7 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
-                        <li><button type="button" class="ebook-pagina" data-pagina="7" aria-label="Ampliar la página de muestra 8"><img src="/ebooks/quinceaneras/img/pagina-08.webp" width="720" height="1018" alt="Página de muestra 8 del ebook Quinceañeras" loading="lazy" decoding="async"></button></li>
+                        <li><button type="button" class="ebook-pagina" data-pagina="1" data-nombre="A caballo" data-grande="/ebooks/quinceaneras/img/pagina-01-grande.webp" aria-label="Ampliar la idea A caballo"><img src="/ebooks/quinceaneras/img/pagina-01.webp" width="600" height="600" alt="Idea «A caballo»: una quinceañera con vestido claro sobre un caballo blanco al atardecer y fotos en el campo, con maquillaje, peinado, vestuario, accesorios y paleta de colores." loading="lazy" decoding="async"><span class="ebook-pagina__nombre">A caballo<svg aria-hidden="true"><use href="#i-lupa"/></svg></span></button></li>
+                        <li><button type="button" class="ebook-pagina" data-pagina="2" data-nombre="Y2K" data-grande="/ebooks/quinceaneras/img/pagina-02-grande.webp" aria-label="Ampliar la idea Y2K"><img src="/ebooks/quinceaneras/img/pagina-02.webp" width="600" height="600" alt="Idea «Y2K»: estética de los años 2000 con luces de neón, ropa pop y un auto rosa, con maquillaje, peinado, vestuario, accesorios y paleta de colores." loading="lazy" decoding="async"><span class="ebook-pagina__nombre">Y2K<svg aria-hidden="true"><use href="#i-lupa"/></svg></span></button></li>
+                        <li><button type="button" class="ebook-pagina" data-pagina="3" data-nombre="Laberinto" data-grande="/ebooks/quinceaneras/img/pagina-03-grande.webp" aria-label="Ampliar la idea Laberinto"><img src="/ebooks/quinceaneras/img/pagina-03.webp" width="600" height="600" alt="Idea «Laberinto»: una quinceañera con vestido blanco recorriendo un laberinto de arbustos, con maquillaje, peinado, vestuario, accesorios y paleta de colores." loading="lazy" decoding="async"><span class="ebook-pagina__nombre">Laberinto<svg aria-hidden="true"><use href="#i-lupa"/></svg></span></button></li>
+                        <li><button type="button" class="ebook-pagina" data-pagina="4" data-nombre="Plástico" data-grande="/ebooks/quinceaneras/img/pagina-04-grande.webp" aria-label="Ampliar la idea Plástico"><img src="/ebooks/quinceaneras/img/pagina-04.webp" width="600" height="600" alt="Idea «Plástico»: fotos con plástico transparente y luces de colores, con maquillaje, peinado, vestuario, accesorios y paleta de colores." loading="lazy" decoding="async"><span class="ebook-pagina__nombre">Plástico<svg aria-hidden="true"><use href="#i-lupa"/></svg></span></button></li>
+                        <li><button type="button" class="ebook-pagina" data-pagina="5" data-nombre="Renacentista" data-grande="/ebooks/quinceaneras/img/pagina-05-grande.webp" aria-label="Ampliar la idea Renacentista"><img src="/ebooks/quinceaneras/img/pagina-05.webp" width="600" height="600" alt="Idea «Renacentista»: vestidos de época y luz de ventana en un salón antiguo, con maquillaje, peinado, vestuario, accesorios y paleta de colores." loading="lazy" decoding="async"><span class="ebook-pagina__nombre">Renacentista<svg aria-hidden="true"><use href="#i-lupa"/></svg></span></button></li>
+                        <li><button type="button" class="ebook-pagina" data-pagina="6" data-nombre="Con tus mascotas" data-grande="/ebooks/quinceaneras/img/pagina-06-grande.webp" aria-label="Ampliar la idea Con tus mascotas"><img src="/ebooks/quinceaneras/img/pagina-06.webp" width="600" height="600" alt="Idea «Con tus mascotas»: una quinceañera con sus perros y gatos en el jardín y en casa, con maquillaje, peinado, vestuario, accesorios y paleta de colores." loading="lazy" decoding="async"><span class="ebook-pagina__nombre">Con tus mascotas<svg aria-hidden="true"><use href="#i-lupa"/></svg></span></button></li>
+                        <li><button type="button" class="ebook-pagina" data-pagina="7" data-nombre="Industrial" data-grande="/ebooks/quinceaneras/img/pagina-07-grande.webp" aria-label="Ampliar la idea Industrial"><img src="/ebooks/quinceaneras/img/pagina-07.webp" width="600" height="600" alt="Idea «Industrial»: look urbano con ropa oscura y borcegos en una fábrica, con maquillaje, peinado, vestuario, accesorios y paleta de colores." loading="lazy" decoding="async"><span class="ebook-pagina__nombre">Industrial<svg aria-hidden="true"><use href="#i-lupa"/></svg></span></button></li>
                     </ul>
                 </div>
             </div>
@@ -201,7 +207,7 @@
                 <div class="ebook-precio reveal-up">
                     <div class="ebook-precio__libro">
                         <div class="libro">
-                            <img src="/ebooks/quinceaneras/img/portada-chica.webp" width="480" height="678" alt="" loading="lazy" decoding="async">
+                            <img src="/ebooks/quinceaneras/img/portada.webp" width="900" height="900" alt="" loading="lazy" decoding="async">
                         </div>
                     </div>
                     <div class="ebook-precio__info">
@@ -259,7 +265,7 @@
         <section class="ebook-cierre" aria-labelledby="titulo-cierre">
             <div class="pixel-shell ebook-cierre__inner">
                 <div class="libro" aria-hidden="true">
-                    <img src="/ebooks/quinceaneras/img/portada-chica.webp" width="480" height="678" alt="" loading="lazy" decoding="async">
+                    <img src="/ebooks/quinceaneras/img/portada.webp" width="900" height="900" alt="" loading="lazy" decoding="async">
                 </div>
                 <div class="reveal-up">
                     <h2 id="titulo-cierre">Llegá a tu sesión de 15 con las ideas claras</h2>
@@ -316,7 +322,7 @@
         <div class="ebook-modal__caja">
             <button type="button" class="ebook-modal__cerrar" data-cerrar-modal aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-cerrar"/></svg></button>
             <div class="ebook-modal__producto">
-                <img src="/ebooks/quinceaneras/img/portada-chica.webp" width="480" height="678" alt="">
+                <img src="/ebooks/quinceaneras/img/portada.webp" width="900" height="900" alt="">
                 <p>Quinceañeras · 100 ideas para tu sesión de fotos <span data-precio-ebook="quinceaneras">$14.900</span></p>
             </div>
             <h2 id="checkout-titulo">¿A nombre de quién va el libro?</h2>

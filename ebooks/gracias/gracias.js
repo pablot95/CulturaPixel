@@ -78,7 +78,7 @@ function pintarAprobado(datos) {
       ? 'Tocá el botón para descargar el PDF.'
       : 'La descarga empieza sola. Si no arranca, tocá el botón.'),
     h('div', { class: 'gracias__libro' },
-      h('img', { src: `/ebooks/${encodeURIComponent(datos.ebook.id)}/img/portada-chica.webp`, alt: '', width: '480', height: '678' }),
+      h('img', { src: `/ebooks/${encodeURIComponent(datos.ebook.id)}/img/portada-chica.webp`, alt: '', width: '480', height: '480' }),
       h('div', {}, h('strong', {}, datos.ebook.titulo), h('span', {}, 'PDF · compra ', h('span', { class: 'gracias__codigo' }, datos.codigo)))),
     h('div', { class: 'gracias__acciones' },
       restantes > 0 ? botonDescarga : null,

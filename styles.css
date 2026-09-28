@@ -2120,7 +2120,7 @@ a {
 }
 
 .ebook-card__portada img {
-    width: min(250px, 100%);
+    width: min(290px, 100%);
     height: auto;
     border-radius: 3px 10px 10px 3px;
     box-shadow:
@@ -2232,7 +2232,7 @@ a {
     }
 
     .ebook-card__portada img {
-        width: min(190px, 60%);
+        width: min(220px, 64%);
     }
 
     .ebook-card__info {

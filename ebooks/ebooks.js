@@ -197,19 +197,48 @@ if (pista) {
   actualizarFlechas();
 }
 
+// Todo lo que se amplía (presentación del libro + ideas del carrusel), en el orden de data-pagina.
 const visor = document.querySelector('[data-visor]');
 const imagenVisor = visor?.querySelector('[data-visor-imagen]');
 const contadorVisor = visor?.querySelector('[data-visor-contador]');
-const paginas = pista ? [...pista.querySelectorAll('img')].map((imagen) => ({ src: imagen.getAttribute('src'), alt: imagen.alt })) : [];
+const botonesPagina = [...document.querySelectorAll('[data-pagina]')].sort((a, b) => Number(a.dataset.pagina) - Number(b.dataset.pagina));
+const paginas = botonesPagina.map((boton) => {
+  const imagen = boton.querySelector('img');
+  const chica = imagen.getAttribute('src');
+  return {
+    chica,
+    grande: boton.dataset.grande || chica,
+    alt: imagen.alt,
+    nombre: boton.dataset.nombre || '',
+    proporcion: Number(imagen.getAttribute('width')) / Number(imagen.getAttribute('height')) || 1,
+  };
+});
 let paginaActual = 0;
 let disparadorVisor = null;
 let liberarVisor = null;
 
+/** Baja la versión grande de una página; al terminar llama a alListo (si todavía corresponde). */
+function precargar(pagina, alListo) {
+  if (pagina.grande === pagina.chica) return;
+  const imagen = document.createElement('img');
+  imagen.decoding = 'async';
+  if (alListo) imagen.addEventListener('load', alListo, { once: true });
+  imagen.src = pagina.grande;
+}
+
 function mostrarPagina(indice) {
   paginaActual = (indice + paginas.length) % paginas.length;
-  imagenVisor.src = paginas[paginaActual].src;
-  imagenVisor.alt = paginas[paginaActual].alt;
-  contadorVisor.textContent = `Página de muestra ${paginaActual + 1} de ${paginas.length}`;
+  const pagina = paginas[paginaActual];
+  // Primero la imagen del carrusel (ya está en caché) y, cuando llega, la grande: se lee el texto chico.
+  imagenVisor.style.setProperty('--proporcion', String(pagina.proporcion));
+  imagenVisor.src = pagina.chica;
+  imagenVisor.alt = pagina.alt;
+  contadorVisor.textContent = `${pagina.nombre ? `${pagina.nombre} · ` : ''}${paginaActual + 1} de ${paginas.length}`;
+  precargar(pagina, () => {
+    if (paginas[paginaActual] !== pagina || visor.hidden) return;
+    imagenVisor.src = pagina.grande;
+    precargar(paginas[(paginaActual + 1) % paginas.length]);
+  });
 }
 
 function cerrarVisor() {
@@ -232,8 +261,8 @@ function abrirVisor(indice, boton) {
   visor.querySelector('[data-visor-cerrar]').focus();
 }
 
-pista?.querySelectorAll('[data-pagina]').forEach((boton) => {
-  boton.addEventListener('click', () => abrirVisor(Number(boton.dataset.pagina), boton));
+botonesPagina.forEach((boton, indice) => {
+  boton.addEventListener('click', () => abrirVisor(indice, boton));
 });
 visor?.querySelector('[data-visor-cerrar]').addEventListener('click', cerrarVisor);
 visor?.querySelector('[data-visor-anterior]').addEventListener('click', () => mostrarPagina(paginaActual - 1));

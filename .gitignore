@@ -13,6 +13,13 @@ secretos/
 storage/ebooks/*
 !storage/ebooks/.gitkeep
 
+# Imágenes originales de los ebooks (pesan varios MB): se dejan en ebooks/ y a la web van
+# las versiones optimizadas de ebooks/<id>/img/ (npm run ebook:imagenes).
+/ebooks/*.jpg
+/ebooks/*.jpeg
+/ebooks/*.png
+/ebooks/*.webp
+
 # Dependencias, caches y temporales
 node_modules/
 .vercel/

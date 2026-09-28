@@ -87,6 +87,18 @@ function avisar(texto, tipo = 'ok') {
   }, 5200);
 }
 
+/** Copia al portapapeles (si el navegador no lo permite, prueba con la selección del campo). Devuelve si pudo. */
+async function copiarTexto(texto, campo) {
+  try {
+    await navigator.clipboard.writeText(texto);
+    return true;
+  } catch {
+    campo?.focus();
+    campo?.select();
+    return document.execCommand?.('copy') === true;
+  }
+}
+
 function mostrarVista(nombre) {
   $$('[data-vista]').forEach((vista) => {
     vista.hidden = vista.dataset.vista !== nombre;
@@ -318,14 +330,9 @@ async function reiniciarDescargas(venta, boton) {
 }
 
 $('[data-dialogo-copiar]').addEventListener('click', async (evento) => {
+  const boton = evento.currentTarget;
   const campo = $('[data-dialogo-url]');
-  try {
-    await navigator.clipboard.writeText(campo.value);
-  } catch {
-    campo.select();
-    document.execCommand?.('copy');
-  }
-  evento.currentTarget.textContent = '¡Copiado!';
+  boton.textContent = (await copiarTexto(campo.value, campo)) ? '¡Copiado!' : 'Copialo del campo';
 });
 $('[data-dialogo-cerrar]').addEventListener('click', () => $('[data-dialogo-link]').close());
 
@@ -423,6 +430,32 @@ function bloquePdf(ebook) {
   return h('div', { class: 'panel-ebook__pdf' }, estadoArchivo, h('div', { class: 'panel-ebook__subida' }, etiqueta, avance));
 }
 
+/** Enlace público del libro, para copiarlo y compartirlo (redes, WhatsApp, mails). */
+function bloqueEnlace(ebook) {
+  const enlace = ebook.enlace || new URL(ebook.url || '/', window.location.origin).href;
+  const campo = h('input', { type: 'text', id: `enlace-${ebook.id}`, value: enlace, readonly: true, spellcheck: 'false', onfocus: (evento) => evento.target.select() });
+  const texto = h('span', {}, 'Copiar enlace');
+  let temporizador;
+  const copiar = h('button', { type: 'button', class: 'panel-btn panel-btn--primario panel-btn--chico', onclick: async () => {
+    if (!(await copiarTexto(enlace, campo))) {
+      avisar('El navegador no dejó copiar solo: el enlace quedó marcado para que lo copies.', 'error');
+      return;
+    }
+    texto.textContent = '¡Copiado!';
+    avisar('Enlace copiado: pegalo donde quieras compartir el libro.');
+    clearTimeout(temporizador);
+    temporizador = setTimeout(() => {
+      texto.textContent = 'Copiar enlace';
+    }, 2500);
+  } }, icono('copiar'), texto);
+  return h('div', { class: 'panel-ebook__enlace' },
+    h('label', { for: campo.id }, 'Enlace del libro'),
+    h('div', { class: 'panel-ebook__enlace-fila' },
+      campo,
+      copiar,
+      h('a', { class: 'panel-btn panel-btn--suave panel-btn--chico', href: ebook.url || enlace, target: '_blank', rel: 'noopener' }, icono('externo'), 'Ver la página')));
+}
+
 function pintarEbooks() {
   const { ebooks } = estado.sesion;
   if (!ebooks.length) {
@@ -460,13 +493,12 @@ function pintarEbooks() {
     guardar);
 
     return h('article', { class: 'panel-tarjeta panel-ebook' },
-      h('img', { src: ebook.portada || '/images/favicon.png', alt: '', width: '110', height: '155' }),
+      h('img', { src: ebook.portada || '/images/favicon.png', alt: '', width: '110', height: '110' }),
       h('div', {},
         h('h3', {}, ebook.titulo),
+        bloqueEnlace(ebook),
         bloquePdf(ebook),
-        formulario,
-        h('p', { class: 'panel-ebook__enlaces' },
-          h('a', { href: ebook.url || '/', target: '_blank', rel: 'noopener' }, 'Ver la página del libro', icono('externo')))));
+        formulario));
   }));
 }
 

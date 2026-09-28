@@ -49,8 +49,17 @@ function vistaPublicaEbook(array $ebook): array {
     ];
 }
 
+/** Dirección pública completa de la landing, para compartir (siempre con el dominio real). */
+function enlaceEbook(array $ebook): string {
+    $ruta = (string)($ebook['url'] ?? '');
+    if (preg_match('#^https?://#i', $ruta)) return $ruta;
+    if ($ruta === '') $ruta = '/ebooks/' . rawurlencode((string)($ebook['id'] ?? '')) . '/';
+    return SITE_URL . '/' . ltrim($ruta, '/');
+}
+
 function vistaAdminEbook(array $ebook): array {
     return vistaPublicaEbook($ebook) + [
+        'enlace' => enlaceEbook($ebook),
         'activo' => ($ebook['activo'] ?? false) === true,
         'descargasMax' => (int)($ebook['descargasMax'] ?? DESCARGAS_MAX) ?: DESCARGAS_MAX,
         'archivo' => archivoDelEbook((string)$ebook['id']),

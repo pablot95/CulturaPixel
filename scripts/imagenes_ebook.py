@@ -1,15 +1,18 @@
 """
-Imágenes de un ebook para la web (las usa scripts/agregar-ebook.mjs):
-  - portada.webp (tapa) y portada-chica.webp
-  - pagina-01.webp ... (páginas de muestra del carrusel)
+Imágenes de un ebook para la web, en ebooks/<id>/img/:
+  - portada.webp (tapa) y portada-chica.webp (home, página de gracias)
+  - resumen.webp + resumen-grande.webp (presentación del libro, opcional)
+  - pagina-01.webp ... (carrusel) + pagina-01-grande.webp ... (visor ampliado)
   - og.jpg (1200x630, para compartir el link en WhatsApp, Instagram y Facebook)
 
+Desde imágenes sueltas (JPG, PNG o WebP de cualquier tamaño; las ideas van en el orden dado):
+  python scripts/imagenes_ebook.py --id quinceaneras --tapa ebooks/001.jpg --resumen ebooks/002.jpg --ideas "ebooks/a caballo.jpg" ebooks/Y2K.jpg
 Desde el PDF real:
   python scripts/imagenes_ebook.py --pdf "C:/ruta/libro.pdf" --id quinceaneras --paginas 1,4,9,15,22,30,41,55
 Provisorias (sin PDF todavía):
   python scripts/imagenes_ebook.py --provisorio --id quinceaneras
 
-Requiere PyMuPDF y Pillow (pip install pymupdf pillow).
+Requiere Pillow, y PyMuPDF solo para --pdf (pip install pillow pymupdf).
 """
 
 import argparse
@@ -17,8 +20,7 @@ import io
 import os
 import sys
 
-import fitz  # PyMuPDF
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageCms, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FUENTES = "C:/Windows/Fonts"
@@ -26,6 +28,11 @@ VIOLETA_NOCHE = (42, 26, 110)
 VIOLETA = (109, 63, 224)
 ROSA = (217, 70, 143)
 TINTA = (15, 16, 53)
+
+# Anchos de salida. Las "grandes" solo se bajan al ampliar una página en el visor:
+# a 1400 px se lee el texto chico de las páginas.
+ANCHO_PORTADA, ANCHO_PORTADA_CHICA = 900, 480
+ANCHO_RESUMEN, ANCHO_PAGINA, ANCHO_GRANDE = 1000, 600, 1400
 
 
 def fuente(tamano, peso="Bold"):
@@ -145,10 +152,33 @@ def pagina_provisoria(numero):
 
 
 def render_pagina(documento, indice, ancho):
+    import fitz  # PyMuPDF, solo para --pdf
+
     pagina = documento[indice]
     escala = ancho / pagina.rect.width
     mapa = pagina.get_pixmap(matrix=fitz.Matrix(escala, escala), alpha=False)
     return Image.open(io.BytesIO(mapa.tobytes("png"))).convert("RGB")
+
+
+def abrir_imagen(ruta):
+    """Abre una imagen derecha (EXIF) y en sRGB, sin transparencia."""
+    if not os.path.exists(ruta):
+        sys.exit(f"No existe la imagen: {ruta}")
+    with Image.open(ruta) as original:
+        img = ImageOps.exif_transpose(original)
+        perfil = original.info.get("icc_profile")
+        if perfil:
+            try:
+                origen = ImageCms.ImageCmsProfile(io.BytesIO(perfil))
+                if "srgb" not in ImageCms.getProfileDescription(origen).lower():
+                    img = ImageCms.profileToProfile(img.convert("RGB"), origen, ImageCms.createProfile("sRGB"))
+            except (OSError, ImageCms.PyCMSError):
+                pass
+        if img.mode in ("RGBA", "LA", "P"):
+            fondo = Image.new("RGB", img.size, "white")
+            fondo.paste(img.convert("RGBA"), mask=img.convert("RGBA").getchannel("A"))
+            return fondo
+        return img.convert("RGB")
 
 
 def imagen_og(portada, titulo, subtitulo):
@@ -158,39 +188,43 @@ def imagen_og(portada, titulo, subtitulo):
     pixeles(ImageDraw.Draw(capa), 70, 64, 6, 2, 18, [VIOLETA, ROSA, (30, 78, 216)])
     fondo = Image.alpha_composite(fondo, capa)
     tapa = portada.copy()
-    tapa.thumbnail((380, 540))
+    tapa.thumbnail((420, 520), Image.LANCZOS)
     sombra = Image.new("RGBA", (tapa.width + 80, tapa.height + 80), (0, 0, 0, 0))
     ImageDraw.Draw(sombra).rounded_rectangle([40, 50, 40 + tapa.width, 50 + tapa.height], radius=12, fill=(42, 26, 110, 120))
     sombra = sombra.filter(ImageFilter.GaussianBlur(18))
-    x, y = ancho - tapa.width - 110, (alto - tapa.height) // 2
+    x, y = ancho - tapa.width - 90, (alto - tapa.height) // 2
     fondo.alpha_composite(sombra, (x - 40, y - 40))
     fondo.paste(tapa, (x, y))
     pintor = ImageDraw.Draw(fondo)
+    ancho_texto = x - 70 - 50
     texto_espaciado(pintor, (70, 150), "EBOOK · PDF", fuente(28, "SemiBold"), VIOLETA, 5)
     letra = fuente(96)
-    while pintor.textlength(titulo, font=letra) > 620:
+    while pintor.textlength(titulo, font=letra) > ancho_texto:
         letra = fuente(letra.size - 4)
     pintor.text((66, 200), titulo, font=letra, fill=TINTA)
     y = 200 + letra.size + 30
     letra_sub = fuente(40, "SemiBold")
-    for linea in lineas_balanceadas(pintor, subtitulo, letra_sub, 600):
+    for linea in lineas_balanceadas(pintor, subtitulo, letra_sub, ancho_texto):
         pintor.text((70, y), linea, font=letra_sub, fill=(74, 74, 122))
         y += 54
     texto_espaciado(pintor, (70, alto - 90), "INSTITUTO CULTURA PIXEL", fuente(26, "SemiBold"), VIOLETA, 5)
     return fondo.convert("RGB")
 
 
-def guardar_webp(img, ruta, ancho):
+def guardar_webp(img, ruta, ancho, calidad=80):
     copia = img.copy()
     if copia.width > ancho:
         copia = copia.resize((ancho, round(copia.height * ancho / copia.width)), Image.LANCZOS)
-    copia.save(ruta, "WEBP", quality=80, method=6)
+    copia.save(ruta, "WEBP", quality=calidad, method=6)
     return copia.size
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--id", required=True)
+    parser.add_argument("--tapa", help="imagen de la tapa")
+    parser.add_argument("--resumen", help="imagen de presentación del libro (opcional)")
+    parser.add_argument("--ideas", nargs="+", default=[], help="páginas de muestra, en el orden del carrusel")
     parser.add_argument("--pdf")
     parser.add_argument("--paginas", default="")
     parser.add_argument("--provisorio", action="store_true")
@@ -198,18 +232,19 @@ def main():
     parser.add_argument("--subtitulo", default="100 ideas para tu sesión de fotos")
     args = parser.parse_args()
 
-    destino = os.path.join(RAIZ, "ebooks", args.id, "img")
-    os.makedirs(destino, exist_ok=True)
-    for viejo in os.listdir(destino):
-        if viejo.startswith("pagina-") and viejo.endswith(".webp"):
-            os.remove(os.path.join(destino, viejo))
-
-    if args.provisorio:
+    resumen = None
+    if args.tapa:
+        portada = abrir_imagen(args.tapa)
+        resumen = abrir_imagen(args.resumen) if args.resumen else None
+        paginas = [abrir_imagen(ruta) for ruta in args.ideas]
+    elif args.provisorio:
         portada = portada_provisoria(args.titulo, args.subtitulo)
         paginas = [pagina_provisoria(n) for n in range(1, 9)]
     else:
         if not args.pdf or not os.path.exists(args.pdf):
-            sys.exit("Falta --pdf o el archivo no existe.")
+            sys.exit("Falta --tapa, --pdf o --provisorio (o el PDF no existe).")
+        import fitz  # PyMuPDF
+
         documento = fitz.open(args.pdf)
         total = documento.page_count
         if args.paginas:
@@ -219,15 +254,29 @@ def main():
             numeros = sorted({max(2, round(2 + i * (total - 2) / 7)) for i in range(8)}) if total > 2 else list(range(1, total + 1))
         numeros = [n for n in numeros if 1 <= n <= total]
         portada = render_pagina(documento, 0, 1100)
-        paginas = [render_pagina(documento, n - 1, 900) for n in numeros]
+        paginas = [render_pagina(documento, n - 1, ANCHO_GRANDE) for n in numeros]
 
-    medidas = {"portada": guardar_webp(portada, os.path.join(destino, "portada.webp"), 900)}
-    guardar_webp(portada, os.path.join(destino, "portada-chica.webp"), 480)
+    destino = os.path.join(RAIZ, "ebooks", args.id, "img")
+    os.makedirs(destino, exist_ok=True)
+    for viejo in os.listdir(destino):
+        if viejo.startswith("pagina-") and viejo.endswith(".webp"):
+            os.remove(os.path.join(destino, viejo))
+
+    medidas = {
+        "portada": guardar_webp(portada, os.path.join(destino, "portada.webp"), ANCHO_PORTADA, 82),
+        "portada-chica": guardar_webp(portada, os.path.join(destino, "portada-chica.webp"), ANCHO_PORTADA_CHICA, 82),
+    }
+    if resumen is not None:
+        medidas["resumen"] = guardar_webp(resumen, os.path.join(destino, "resumen.webp"), ANCHO_RESUMEN)
+        medidas["resumen-grande"] = guardar_webp(resumen, os.path.join(destino, "resumen-grande.webp"), ANCHO_GRANDE)
     for i, pagina in enumerate(paginas, start=1):
-        medidas[f"pagina-{i:02d}"] = guardar_webp(pagina, os.path.join(destino, f"pagina-{i:02d}.webp"), 720)
+        medidas[f"pagina-{i:02d}"] = guardar_webp(pagina, os.path.join(destino, f"pagina-{i:02d}.webp"), ANCHO_PAGINA, 78)
+        medidas[f"pagina-{i:02d}-grande"] = guardar_webp(pagina, os.path.join(destino, f"pagina-{i:02d}-grande.webp"), ANCHO_GRANDE)
     imagen_og(portada, args.titulo, args.subtitulo).save(os.path.join(destino, "og.jpg"), "JPEG", quality=84, optimize=True, progressive=True)
+    medidas["og"] = (1200, 630)
     for nombre, (ancho, alto) in medidas.items():
-        print(f"{nombre}: {ancho}x{alto}")
+        tamano = os.path.getsize(os.path.join(destino, f"{nombre}.{'jpg' if nombre == 'og' else 'webp'}"))
+        print(f"{nombre}: {ancho}x{alto}, {tamano // 1024} KB")
 
 
 if __name__ == "__main__":

@@ -29,6 +29,13 @@ comprobar(archivoDelEbook('quinceaneras')['bytes'], strlen("%PDF-1.4\n%prueba\n"
 comprobarError(static fn() => rutaPdf('../config'), '/inválido/', 'no permite salir de la carpeta');
 comprobar(vistaPublicaEbook($ebook + ['titulo' => 'Q'])['precio'], 14900, 'precio entero');
 
+// Enlace para compartir desde el panel: siempre con el dominio del sitio
+comprobar(enlaceEbook(['id' => 'quinceaneras', 'url' => '/ebooks/quinceaneras/']), SITE_URL . '/ebooks/quinceaneras/', 'enlace con el dominio del sitio');
+comprobar(enlaceEbook(['id' => 'quinceaneras', 'url' => 'ebooks/quinceaneras/']), SITE_URL . '/ebooks/quinceaneras/', 'agrega la barra que falta');
+comprobar(enlaceEbook(['id' => 'quinceaneras']), SITE_URL . '/ebooks/quinceaneras/', 'sin url usa la carpeta del ebook');
+comprobar(enlaceEbook(['id' => 'x', 'url' => 'https://otro.com/libro/']), 'https://otro.com/libro/', 'respeta una url completa');
+comprobar(vistaAdminEbook($ebook + ['titulo' => 'Q', 'url' => '/ebooks/quinceaneras/'])['enlace'], SITE_URL . '/ebooks/quinceaneras/', 'el panel recibe el enlace');
+
 unlink($carpeta . '/quinceaneras.pdf');
 rmdir($carpeta);
 terminarPruebas('ebooks');
