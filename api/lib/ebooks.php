@@ -45,7 +45,7 @@ function vistaPublicaEbook(array $ebook): array {
         'moneda' => (string)($ebook['moneda'] ?? MONEDA),
         'disponible' => sePuedeComprar($ebook),
         'url' => (string)($ebook['url'] ?? ''),
-        'portada' => (string)($ebook['portada'] ?? ''),
+        'portada' => urlConVersion((string)($ebook['portada'] ?? '')),
     ];
 }
 

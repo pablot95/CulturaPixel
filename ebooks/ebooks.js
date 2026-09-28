@@ -3,7 +3,7 @@
 
 import {
   cargarCatalogo, enlaceWhatsapp, guardarCompra, leerCompras, postJson, sinMovimiento, trampaDeFoco,
-} from './comun.js';
+} from './comun.js?v=2da7bc57fe';
 
 const ebookDePagina = document.body.dataset.ebook || '';
 const tituloDePagina = document.body.dataset.ebookTitulo || 'el ebook';

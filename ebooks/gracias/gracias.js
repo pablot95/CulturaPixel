@@ -3,7 +3,7 @@
 // El enlace de esta página es el acceso personal a la compra: sirve para volver a
 // descargar el libro.
 
-import { enlaceWhatsapp, guardarCompra, leerCompras, postJson } from '../comun.js';
+import { enlaceWhatsapp, guardarCompra, leerCompras, postJson } from '../comun.js?v=2da7bc57fe';
 
 const tarjeta = document.querySelector('[data-gracias]');
 const consulta = new URLSearchParams(location.search);
@@ -78,7 +78,7 @@ function pintarAprobado(datos) {
       ? 'Tocá el botón para descargar el PDF.'
       : 'La descarga empieza sola. Si no arranca, tocá el botón.'),
     h('div', { class: 'gracias__libro' },
-      h('img', { src: `/ebooks/${encodeURIComponent(datos.ebook.id)}/img/portada-chica.webp`, alt: '', width: '480', height: '480' }),
+      h('img', { src: datos.ebook.portada || `/ebooks/${encodeURIComponent(datos.ebook.id)}/img/portada-chica.webp`, alt: '', width: '480', height: '480' }),
       h('div', {}, h('strong', {}, datos.ebook.titulo), h('span', {}, 'PDF · compra ', h('span', { class: 'gracias__codigo' }, datos.codigo)))),
     h('div', { class: 'gracias__acciones' },
       restantes > 0 ? botonDescarga : null,

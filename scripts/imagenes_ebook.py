@@ -277,6 +277,7 @@ def main():
     for nombre, (ancho, alto) in medidas.items():
         tamano = os.path.getsize(os.path.join(destino, f"{nombre}.{'jpg' if nombre == 'og' else 'webp'}"))
         print(f"{nombre}: {ancho}x{alto}, {tamano // 1024} KB")
+    print("Listo. Después de cambiar imágenes: npm run versionar (actualiza los ?v= de los HTML).")
 
 
 if __name__ == "__main__":

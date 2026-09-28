@@ -178,3 +178,19 @@ function cleanText(mixed $value, int $max = 500): string {
 function escaparHtml(mixed $texto): string {
     return htmlspecialchars((string)$texto, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
+
+/**
+ * Ruta de un archivo de la web con su versión (?v=<hash del contenido>), como hace
+ * scripts/versionar.mjs en los HTML: Hostinger cachea imágenes, CSS y JS 7 días y así un
+ * archivo que cambia sin cambiar de nombre no queda viejo en el navegador.
+ */
+function urlConVersion(string $ruta): string {
+    static $huellas = [];
+    $limpia = (string)strtok($ruta, '?#');
+    if (!str_starts_with($limpia, '/') || str_contains($limpia, '..')) return $ruta;
+    if (!array_key_exists($limpia, $huellas)) {
+        $archivo = dirname(__DIR__, 2) . rawurldecode($limpia);
+        $huellas[$limpia] = is_file($archivo) ? substr((string)sha1_file($archivo), 0, 10) : null;
+    }
+    return $huellas[$limpia] === null ? $limpia : $limpia . '?v=' . $huellas[$limpia];
+}

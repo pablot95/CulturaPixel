@@ -226,7 +226,11 @@ function vistaComprador(array $venta, string $clave): array {
         'codigo' => (string)$venta['id'],
         'estado' => (string)$venta['estado'],
         'nombre' => primerNombre((string)($venta['compradorNombre'] ?? '')),
-        'ebook' => ['id' => (string)$venta['ebookId'], 'titulo' => (string)($venta['ebookTitulo'] ?? '')],
+        'ebook' => [
+            'id' => (string)$venta['ebookId'],
+            'titulo' => (string)($venta['ebookTitulo'] ?? ''),
+            'portada' => urlConVersion('/ebooks/' . rawurlencode((string)$venta['ebookId']) . '/img/portada-chica.webp'),
+        ],
         'monto' => $venta['monto'] ?? 0,
         'moneda' => (string)($venta['moneda'] ?? MONEDA),
         'descargas' => ['usadas' => $usadas, 'max' => $max, 'restantes' => max(0, $max - $usadas)],

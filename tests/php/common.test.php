@@ -28,4 +28,14 @@ comprobar(cleanText("  Sofía\t\nPérez\x00 \x7f ok  ", 50), 'Sofía Pérez ok',
 comprobar(cleanText(['no'], 50), '', 'rechaza lo que no es texto');
 comprobar(cleanText('abcdef', 3), 'abc', 'corta al máximo');
 
+// Versión de archivos de la web (la misma que pone scripts/versionar.mjs en los HTML)
+$portada = '/ebooks/quinceaneras/img/portada.webp';
+$huella = substr(sha1_file(dirname(__DIR__, 2) . $portada), 0, 10);
+comprobar(urlConVersion($portada), $portada . '?v=' . $huella, 'agrega el hash del contenido');
+comprobar(urlConVersion($portada . '?v=viejo'), $portada . '?v=' . $huella, 'reemplaza una versión vieja');
+comprobar(urlConVersion('/ebooks/no-existe.webp'), '/ebooks/no-existe.webp', 'sin archivo no agrega versión');
+comprobar(urlConVersion('https://otro.com/a.webp'), 'https://otro.com/a.webp', 'no toca direcciones externas');
+comprobar(urlConVersion('/../api/config.php'), '/../api/config.php', 'no sale de la carpeta de la web');
+comprobar(urlConVersion(''), '', 'vacío queda vacío');
+
 terminarPruebas('common');

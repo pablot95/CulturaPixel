@@ -27,4 +27,11 @@ DirectoryIndex index.html index.php
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  # Las páginas se revalidan en cada visita (304 si no cambiaron). Los CSS, JS e imágenes
+  # se cachean 7 días (Hostinger) pero van con ?v=<hash> (npm run versionar): un deploy
+  # nunca mezcla una página nueva con archivos viejos.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
 </IfModule>

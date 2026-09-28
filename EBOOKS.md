@@ -59,11 +59,19 @@ Una venta aprobada solo cambia si se reembolsa o contracarga **ese mismo pago**.
    (o `--pdf "C:\ruta\libro.pdf" --paginas 1,4,9,15` para sacarlas del PDF). Cada idea queda
    como `pagina-NN.webp` para el carrusel y `pagina-NN-grande.webp` para verla ampliada.
 3. Copiar `ebooks/quinceaneras/` como base de la landing (cambiar `data-ebook`, textos, nombres y `alt` de las ideas, JSON-LD y rutas de imágenes) y sumar la tarjeta en la sección `#ebooks` de la home y en `sitemap.xml`.
-4. Subir el PDF desde el panel y copiar el enlace del libro (**Ebooks → Copiar enlace**) para compartirlo.
+4. `npm run versionar` (ver abajo), subir el PDF desde el panel y copiar el enlace del libro (**Ebooks → Copiar enlace**) para compartirlo.
 
 La tapa de Quinceañeras es cuadrada. Si otro libro tiene tapa vertical, poner
 `style="--ebook-tapa: 900 / 1272"` (sus medidas) en el `<body>` de su landing y ajustar
 `width`/`height` de sus imágenes.
+
+## Caché: correr `npm run versionar` después de cada cambio
+
+Hostinger sirve CSS, JS e imágenes con caché de 7 días; las páginas HTML se revalidan
+siempre (`.htaccess`). Por eso cada archivo se pide con su versión (`/ebooks/ebooks.css?v=<hash>`):
+**después de cambiar un CSS, JS o imagen, correr `npm run versionar`** y commitear. `npm test`
+falla si alguna quedó vieja. Las tapas que arma la API (panel, página de gracias) se versionan
+solas con `urlConVersion()`.
 
 ## Probar en local
 
