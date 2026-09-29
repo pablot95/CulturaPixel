@@ -28,3 +28,4 @@ tmp/
 
 # Configuración local de herramientas
 .claude/
+__pycache__/
