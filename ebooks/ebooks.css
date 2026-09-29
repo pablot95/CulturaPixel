@@ -126,6 +126,28 @@
     background: linear-gradient(135deg, var(--eb-rosa), var(--eb-violeta));
 }
 
+/* ---------- encabezado y pie sin marca del instituto ---------- */
+
+.ebook-marca {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--pixel-ink);
+    text-decoration: none;
+}
+
+.ebook-marca:focus-visible {
+    outline: 3px solid #b9a7ff;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+.ebook-pie {
+    padding: 22px 0;
+    text-align: center;
+}
+
 /* ---------- libro con volumen ---------- */
 
 .libro {

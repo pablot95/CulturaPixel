@@ -17,11 +17,11 @@ try {
     $ebook = leerEbook(cleanText($entrada['ebookId'] ?? '', 60));
     if (!$ebook) throw new ErrorPublico('No encontramos ese ebook.', 404);
     if (!sePuedeComprar($ebook)) {
-        throw new ErrorPublico('Este ebook no está a la venta en este momento. Escribinos por WhatsApp y te ayudamos.', 409, 'no_disponible');
+        throw new ErrorPublico('Este ebook no está a la venta en este momento. Probá de nuevo más tarde.', 409, 'no_disponible');
     }
     $token = mercadoPagoAccessToken();
     if ($token === '') {
-        throw new ErrorPublico('Las compras online todavía no están habilitadas. Escribinos por WhatsApp y te ayudamos.', 503, 'sin_mercadopago');
+        throw new ErrorPublico('Las compras todavía no están habilitadas. Probá de nuevo más tarde.', 503, 'sin_mercadopago');
     }
 
     ['venta' => $venta, 'clave' => $clave] = crearVenta($ebook, $comprador, (int)($ebook['descargasMax'] ?? 0) ?: DESCARGAS_MAX);

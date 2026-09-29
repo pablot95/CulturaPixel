@@ -35,9 +35,9 @@ try {
     if (!$decision['permitido']) {
         match ($decision['motivo']) {
             'limite' => responderPagina(403, 'Llegaste al límite de descargas',
-                'Este enlace ya se usó ' . ((int)($venta['descargasMax'] ?? 0) ?: DESCARGAS_MAX) . ' veces. Si necesitás descargar el libro otra vez, escribinos por WhatsApp con tu número de compra (' . $codigo . ') y te habilitamos más descargas.',
+                'Este enlace ya se usó ' . ((int)($venta['descargasMax'] ?? 0) ?: DESCARGAS_MAX) . ' veces, que es el máximo por compra.',
                 $volver, $codigo),
-            'reembolsada' => responderPagina(403, 'Esta compra fue reembolsada', 'El pago se devolvió, así que la descarga ya no está disponible. Si creés que es un error, escribinos.', $volver, $codigo),
+            'reembolsada' => responderPagina(403, 'Esta compra fue reembolsada', 'El pago se devolvió, así que la descarga ya no está disponible.', $volver, $codigo),
             default => responderPagina(403, 'Tu pago todavía no está confirmado', 'Apenas Mercado Pago lo apruebe vas a poder descargar el libro desde tu página de compra. Suele tardar unos segundos.', $volver, $codigo),
         };
     }
@@ -78,5 +78,5 @@ try {
     exit;
 } catch (Throwable $error) {
     error_log('[descargar] ' . $error->getMessage());
-    responderPagina(500, 'No pudimos preparar tu descarga', 'Probá de nuevo en unos minutos. Si sigue fallando, escribinos por WhatsApp y te lo resolvemos.', $volver, $codigo);
+    responderPagina(500, 'No pudimos preparar tu descarga', 'Probá de nuevo en unos minutos.', $volver, $codigo);
 }

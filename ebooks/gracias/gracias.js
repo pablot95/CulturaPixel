@@ -3,7 +3,7 @@
 // El enlace de esta página es el acceso personal a la compra: sirve para volver a
 // descargar el libro.
 
-import { enlaceWhatsapp, guardarCompra, leerCompras, postJson } from '../comun.js?v=2da7bc57fe';
+import { guardarCompra, leerCompras, postJson } from '../comun.js?v=27743da1fd';
 
 const tarjeta = document.querySelector('[data-gracias]');
 const consulta = new URLSearchParams(location.search);
@@ -53,12 +53,6 @@ function pintar(...contenido) {
   tarjeta.replaceChildren(...contenido.flat().filter(Boolean));
 }
 
-const ayuda = (texto) => h('p', { class: 'gracias__ayuda' },
-  '¿Algún problema? ',
-  h('a', { href: enlaceWhatsapp(texto), target: '_blank', rel: 'noopener noreferrer' }, 'Escribinos por WhatsApp'),
-  ' y lo resolvemos.');
-
-const textoAyuda = () => `Hola, compré un ebook${orden ? ` (compra ${orden})` : ''} y necesito ayuda con la descarga.`;
 
 /* ---------------------------------------------------------------- estados */
 
@@ -91,8 +85,7 @@ function pintarAprobado(datos) {
       h('strong', {}, 'Guardá esta página: '),
       restantes > 0
         ? `con este enlace podés volver a descargar el libro cuando quieras (te quedan ${restantes} ${restantes === 1 ? 'descarga' : 'descargas'}).`
-        : 'ya usaste todas las descargas de esta compra. Escribinos y te habilitamos más.'),
-    ayuda(textoAyuda()),
+        : 'ya usaste todas las descargas de esta compra.'),
   );
   tarjeta.querySelector('h1').focus({ preventScroll: true });
 
@@ -114,7 +107,6 @@ function pintarPendiente({ agotado = false } = {}) {
     agotado ? h('div', { class: 'gracias__acciones' },
       h('button', { type: 'button', class: 'ebook-btn', onclick: () => { intentos = 0; limite = 20; consultar(); } }, 'Consultar de nuevo'),
       h('p', { class: 'gracias__secundaria' }, h('button', { type: 'button', class: 'gracias__enlace', onclick: copiarEnlace }, 'Copiar el enlace de esta página'))) : null,
-    ayuda(textoAyuda()),
   );
 }
 
@@ -127,7 +119,6 @@ function pintarSinPagar(datos, { rechazado = false } = {}) {
       ? 'Mercado Pago no aprobó el pago o se canceló antes de terminar. Podés intentarlo de nuevo con otro medio de pago.'
       : 'Volviste antes de terminar el pago. Cuando quieras, lo retomás desde la página del libro.'),
     h('div', { class: 'gracias__acciones' }, h('a', { class: 'ebook-btn ebook-btn--xl', href: url }, rechazado ? 'Intentar de nuevo' : 'Terminar la compra')),
-    ayuda(`Hola, quise comprar el ebook ${datos.ebook.titulo} y tuve un problema con el pago.`),
   );
 }
 
@@ -136,7 +127,6 @@ function pintarReembolsado() {
     h('div', { class: 'gracias__icono gracias__icono--error' }, icono('cruz')),
     h('h1', {}, 'Esta compra fue reembolsada'),
     h('p', { class: 'gracias__texto' }, 'El pago se devolvió, así que la descarga ya no está disponible.'),
-    ayuda(textoAyuda()),
   );
 }
 
@@ -144,8 +134,7 @@ function pintarNoEncontrada() {
   pintar(
     h('div', { class: 'gracias__icono' }, icono('busqueda')),
     h('h1', {}, 'No encontramos tu compra'),
-    h('p', { class: 'gracias__texto' }, 'Revisá que el enlace esté completo. Si pagaste y no ves tu libro, escribinos por WhatsApp y te lo mandamos.'),
-    h('div', { class: 'gracias__acciones' }, h('a', { class: 'ebook-btn', href: enlaceWhatsapp('Hola, compré un ebook y no encuentro la descarga.'), target: '_blank', rel: 'noopener noreferrer' }, 'Escribinos por WhatsApp')),
+    h('p', { class: 'gracias__texto' }, 'Revisá que el enlace esté completo: es el que te llevó a esta página después de pagar.'),
   );
 }
 
@@ -155,7 +144,6 @@ function pintarErrorDeRed(mensaje) {
     h('h1', {}, 'No pudimos consultar tu compra'),
     h('p', { class: 'gracias__texto' }, mensaje),
     h('div', { class: 'gracias__acciones' }, h('button', { type: 'button', class: 'ebook-btn', onclick: () => { intentos = 0; consultar(); } }, 'Reintentar')),
-    ayuda(textoAyuda()),
   );
 }
 

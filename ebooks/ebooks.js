@@ -2,11 +2,10 @@
 // en el celular y aviso para quien ya lo compró desde este navegador.
 
 import {
-  cargarCatalogo, enlaceWhatsapp, guardarCompra, leerCompras, postJson, sinMovimiento, trampaDeFoco,
-} from './comun.js?v=2da7bc57fe';
+  cargarCatalogo, guardarCompra, leerCompras, postJson, sinMovimiento, trampaDeFoco,
+} from './comun.js?v=27743da1fd';
 
 const ebookDePagina = document.body.dataset.ebook || '';
-const tituloDePagina = document.body.dataset.ebookTitulo || 'el ebook';
 const disponibles = {};
 
 cargarCatalogo()
@@ -47,16 +46,8 @@ function limpiarErrores() {
   }
 }
 
-function mostrarErrorGeneral(mensaje, conWhatsapp = false) {
-  errorGeneral.replaceChildren(document.createTextNode(`${mensaje} `));
-  if (conWhatsapp) {
-    const enlace = document.createElement('a');
-    enlace.href = enlaceWhatsapp(`Hola, quiero comprar el ebook ${tituloDePagina}.`);
-    enlace.target = '_blank';
-    enlace.rel = 'noopener noreferrer';
-    enlace.textContent = 'Abrir WhatsApp';
-    errorGeneral.append(enlace);
-  }
+function mostrarErrorGeneral(mensaje) {
+  errorGeneral.textContent = mensaje;
   errorGeneral.hidden = false;
 }
 
@@ -72,7 +63,7 @@ function abrirCheckout(boton) {
   disparador = boton || document.activeElement;
   limpiarErrores();
   if (disponibles[ebookElegido] === false) {
-    mostrarErrorGeneral('Por ahora este libro no está a la venta online. Escribinos y te ayudamos a conseguirlo.', true);
+    mostrarErrorGeneral('Por ahora este libro no está a la venta. Probá de nuevo más tarde.');
   }
   modal.hidden = false;
   requestAnimationFrame(() => modal.classList.add('is-open'));
@@ -133,8 +124,8 @@ formulario?.addEventListener('submit', async (evento) => {
       marcarError(formulario.email, error.message);
       formulario.email.focus();
     } else {
-      // Cualquier otro problema (venta pausada, Mercado Pago sin conectar, sin conexión): WhatsApp a mano.
-      mostrarErrorGeneral(error.message, true);
+      // Cualquier otro problema (venta pausada, Mercado Pago sin conectar, sin conexión).
+      mostrarErrorGeneral(error.message);
     }
   }
 });

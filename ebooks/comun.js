@@ -1,12 +1,10 @@
 // Utilidades compartidas por la landing de cada ebook y la página de gracias.
 
-export const WHATSAPP = '5492615547922';
 const CLAVE_COMPRAS = 'culturapixel:compras';
 const FOCUSABLES = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export const formatearNumero = (numero) => new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 }).format(numero);
 export const formatearPrecio = (numero) => `$${formatearNumero(numero)}`;
-export const enlaceWhatsapp = (texto) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
 
 /** Compras hechas desde este navegador (para volver a la descarga sin buscar el link). */
 export function leerCompras() {

@@ -184,9 +184,6 @@ def abrir_imagen(ruta):
 def imagen_og(portada, titulo, subtitulo):
     ancho, alto = 1200, 630
     fondo = degradado(ancho, alto, [(247, 243, 255), (255, 233, 244)]).convert("RGBA")
-    capa = Image.new("RGBA", fondo.size, (0, 0, 0, 0))
-    pixeles(ImageDraw.Draw(capa), 70, 64, 6, 2, 18, [VIOLETA, ROSA, (30, 78, 216)])
-    fondo = Image.alpha_composite(fondo, capa)
     tapa = portada.copy()
     tapa.thumbnail((420, 520), Image.LANCZOS)
     sombra = Image.new("RGBA", (tapa.width + 80, tapa.height + 80), (0, 0, 0, 0))
@@ -207,7 +204,6 @@ def imagen_og(portada, titulo, subtitulo):
     for linea in lineas_balanceadas(pintor, subtitulo, letra_sub, ancho_texto):
         pintor.text((70, y), linea, font=letra_sub, fill=(74, 74, 122))
         y += 54
-    texto_espaciado(pintor, (70, alto - 90), "INSTITUTO CULTURA PIXEL", fuente(26, "SemiBold"), VIOLETA, 5)
     return fondo.convert("RGB")
 
 
